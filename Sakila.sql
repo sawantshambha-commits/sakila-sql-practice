@@ -37,12 +37,37 @@ inner join category as c
 on fc.category_id = c.category_id;
 
 -- 7 Find the total number of rentals per customer using rental and customer tables.
+select concat(c.first_name, ' ', c.last_name) as Full_Name, count(r.rental_id) as Total_rental
+from customer as c
+join rental as r
+on c.customer_id = r.customer_id
+group by Full_Name;
 
-Display the top 5 customers who spent the most money (use payment table).
+-- 8 Display the top 5 customers who spent the most money (use payment table).
+select concat(c.first_name, ' ', c.last_name) as Full_Name, sum(p.amount)
+from customer as c
+join payment as p
+on c.customer_id = p.customer_id
+group by Full_Name;
 
-Show all films that have “Comedy” as their category.
+-- 9 Show all films that have “Comedy” as their category.
+select f.title, c.name
+from film as f
+join film_category as fc
+on f.film_id = fc.film_id
+join category as c
+on fc.category_id = c.category_id
+where c.name = "comedy";
 
-Retrieve the list of actors who appeared in the film “ACADEMY DINOSAUR”.
+-- 10 Retrieve the list of actors who appeared in the film “ACADEMY DINOSAUR”
+select a.first_name, a.last_name, f.title
+from film as f
+join film_actor as fa
+on f.film_id = fa.film_id
+join actor as a
+on fa.actor_id = a.actor_id
+where title = "ACADEMY DINOSAUR";
+
 
 🚀 Advanced Level
 Find the average rental duration per film category.
